@@ -201,3 +201,22 @@ SELECT 	p.name,
 FROM  products p 
 LEFT JOIN order_details od ON od.product_id = p.id
 ORDER BY od.quantity ASC
+
+-- UPDATED: Не зрозуміла завдання спочатку, подумала, що маються на увазі рядки з NULL, а виявляється, мався на увазі OFFSET. Переробила
+
+SELECT	o.id AS order_id,
+	o.date,
+	c.id AS customer_id,
+	c.contact AS customer_contact,
+	od.quantity,
+	p.name,
+	p.unit,
+	p.price,
+	ct.name
+FROM	orders o
+JOIN    customers c ON o.customer_id = c.id
+JOIN	order_details od ON o.id = od.order_id
+JOIN	products p ON od.product_id = p.id
+JOIN	categories ct ON p.category_id = ct.id
+ORDER BY 1, 2 ASC
+LIMIT 4 OFFSET 1
